@@ -1,8 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
+export const dynamic = "force-dynamic";
+
+import React, { Suspense, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function ChangeTablePage() {
+function ChangeTablePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("sessionId"); // ?sessionId=XXX
@@ -163,5 +165,13 @@ export default function ChangeTablePage() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function ChangeTablePageWrapper() {
+  return (
+    <Suspense fallback={<div>Yükleniyor...</div>}>
+      <ChangeTablePage />
+    </Suspense>
   );
 }
